@@ -1,0 +1,13 @@
+h1 {
+  text-align: center;
+}
+.errors {
+  width: 70%;
+  margin: 1rem auto;
+  border: 2px solid red;
+  padding: 1rem;
+}
+
+.errors p {
+  display: inline;
+}
