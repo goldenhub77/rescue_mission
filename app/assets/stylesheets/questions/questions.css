@@ -1,0 +1,43 @@
+.button {
+  margin: 1rem;
+  text-decoration: none;
+  padding: 0.3rem;
+  border: 1px solid black;
+  border-radius: 0.3rem;
+}
+
+.button:hover {
+  background: red;
+}
+
+form {
+  margin: 2rem;
+}
+
+ul {
+  margin: 2rem;
+  list-style: none;
+}
+
+li {
+  border: 2px solid gray;
+  padding: 2rem;
+  margin: 1rem;
+}
+
+p {
+  text-align: center;
+  border: 2px solid gray;
+  padding: 2rem;
+  margin: 1rem;
+}
+
+h1 {
+  text-align: center;
+}
+.errors p {
+  margin: 1rem auto;
+  width: 40%;
+  border: 2px solid red;
+  padding: 1rem;
+}

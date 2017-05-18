@@ -1,2 +1,26 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.description %></p>
+<%= link_to "Edit", edit_question_path(@question), class: "button" %>
+<h2>Submit an answer</h2>
+<% if !@errors.nil? %>
+  <div class="errors">
+    <p><%= @errors.join(", ") %></p>
+  </div>
+<% end %>
+<%= form_for [@question, @submitted_answer] do |f| %>
+  <div class="field">
+    <%= f.text_area :body, id: "body", size: "60x10" %>
+    <%= f.hidden_field :question_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Submit Answer" %>
+  </div>
+<% end %>
+
+<h4>Answers</h4>
+<ul>
+  <% @answers.each do |answer| %>
+    <li><%= answer.body %></li>
+  <% end %>
+</ul>

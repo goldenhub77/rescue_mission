@@ -1,4 +1,5 @@
-<h1>Submit a question</h1>
+<h1>Edit Question</h1>
+<h4><%= @question.title %></h4>
 <% if !@errors.nil? %>
   <div class="errors">
     <p><%= @errors.join(", ") %></p>
@@ -7,7 +8,7 @@
 <%= form_for(@question) do |f| %>
   <div class="field">
     <%= f.label :title %><br />
-    <%= f.text_field :title, size: "60" %>
+    <%= f.text_field :title, size: @question.title.size %>
   </div>
 
   <div class="field">
@@ -16,6 +17,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Submit Question" %>
+    <%= f.submit "Update Question" %>
   </div>
 <% end %>
+<%= link_to "Delete", question_path(@question.id), class: "button", method: :delete %>

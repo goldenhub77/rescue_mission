@@ -9,8 +9,8 @@
   </head>
 
   <body>
-    <% if !current_page?(questions_path) %>
-      <%= link_to 'Go back', questions_path, class: 'button' %>
+    <% if !current_page?(questions_path) && !current_page?("/") %>
+      <%= link_to 'Home', questions_path, class: 'button' %>
     <% end %>
     <%= yield %>
   </body>
