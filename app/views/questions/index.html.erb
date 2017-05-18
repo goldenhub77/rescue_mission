@@ -1,5 +1,5 @@
 <h1>Recent Questions</h1>
 <%= link_to 'Submit Question', new_question_path, class: 'button' %>
 <% @recent_questions.each do |question| %>
-  <p><%= link_to question.title, question_path(question.id) %></p>
+  <p class="recent_questions"><%= link_to question.title, question_path(question.id) %></p>
 <% end %>

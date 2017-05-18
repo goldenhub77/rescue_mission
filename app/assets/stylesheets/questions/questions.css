@@ -14,22 +14,17 @@ form {
   margin: 2rem;
 }
 
-ul {
-  margin: 2rem;
-  list-style: none;
-}
-
-li {
-  border: 2px solid gray;
-  padding: 2rem;
-  margin: 1rem;
-}
-
-p {
+p.recent_questions {
   text-align: center;
   border: 2px solid gray;
   padding: 2rem;
   margin: 1rem;
+}
+
+div.question_answer {
+  border: 2px solid gray;
+  padding: 1rem;
+  margin: 2rem;
 }
 
 h1 {
