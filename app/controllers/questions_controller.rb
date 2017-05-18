@@ -7,6 +7,14 @@ class QuestionsController < ApplicationController
     @errors = nil
     @question = Question.find(params[:id])
     @answers = @question.answers.order(created_at: :desc)
+    @best_answer = nil
+    @answers = @answers.to_a
+    @answers.each.with_index do |answer, index|
+      if answer.id === @question.best_answer
+        @best_answer = @answers.slice!(index, 1)
+        @best_answer = @best_answer.first.body
+      end
+    end
     @submitted_answer = @question.answers.new
   end
 
