@@ -22,6 +22,10 @@ class AnswersController < ApplicationController
     end
   end
 
+  def vote_best
+    binding.pry
+  end
+
   private
 
   def answer_params

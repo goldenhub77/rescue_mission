@@ -20,5 +20,9 @@
 
 <h4>Answers</h4>
 <% @answers.each do |answer| %>
-  <div class="question_answer"><%= ApplicationRecord.to_markdown(answer.body) %></div>
+
+  <div class="question_answer">
+    <%= link_to "Vote Best", question_answer_vote_best_path(@question.id, answer.id), method: "POST", class: "button" %>
+    <%= ApplicationRecord.to_markdown(answer.body) %>
+  </div>
 <% end %>

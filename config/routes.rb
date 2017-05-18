@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   resources :questions do
-    resources :answers, only: [:index, :show, :create]
+    resources :answers, only: [:index, :show, :create] do
+      post 'vote-best'
+    end
   end
 
 root 'questions#index'
