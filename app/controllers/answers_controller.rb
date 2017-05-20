@@ -23,12 +23,19 @@ class AnswersController < ApplicationController
   end
 
   def vote_best
-    binding.pry
+    @question = Question.find(vote_params[:question_id])
+    @question.best_answer = vote_params[:answer_id].to_i
+    @question.save
+    redirect_to question_path(@question.id)
   end
 
   private
 
+  def vote_params
+    params.permit(:question_id, :answer_id)
+  end
+
   def answer_params
-    params.require(:answer).permit(:body, :question_id)
+    params.require(:answer).permit(:body, :question_id, :user_id)
   end
 end

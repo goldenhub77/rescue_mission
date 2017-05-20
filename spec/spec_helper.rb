@@ -13,10 +13,13 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+Dir[__dir__ + '/support/*.rb'].each { |file| require_relative file }
+# Dir[__dir__ + '/controllers/*.rb'].each { |file| require_relative file }
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
@@ -25,6 +28,7 @@ RSpec.configure do |config|
     #     # => "be bigger than 2 and smaller than 4"
     # ...rather than:
     #     # => "be bigger than 2"
+
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 

@@ -4,11 +4,19 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @errors = nil
-    @question = Question.find(params[:id])
-    @answers = @question.answers.order(created_at: :desc)
-    @submitted_answer = @question.answers.new
+  @errors = nil
+  @question = Question.find(params[:id])
+  @answers = @question.answers.order(created_at: :desc)
+  @best_answer = nil
+  @answers = @answers.to_a
+  @answers.each.with_index do |answer, index|
+    if answer.id === @question.best_answer
+      @best_answer = @answers.slice!(index, 1)
+      @best_answer = @best_answer.first.body
+    end
   end
+  @submitted_answer = @question.answers.new
+end
 
   def new
     @errors = nil
@@ -47,6 +55,7 @@ class QuestionsController < ApplicationController
     @question.destroy
     redirect_to questions_path
   end
+
   private
 
   def question_params

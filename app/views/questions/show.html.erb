@@ -11,6 +11,7 @@
   <div class="field">
     <%= f.text_area :body, id: "body", size: "60x10" %>
     <%= f.hidden_field :question_id %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
   </div>
 
   <div class="actions">
@@ -19,10 +20,17 @@
 <% end %>
 
 <h4>Answers</h4>
-<% @answers.each do |answer| %>
-
+<% if @question.best_answer %>
   <div class="question_answer">
-    <%= link_to "Vote Best", question_answer_vote_best_path(@question.id, answer.id), method: "POST", class: "button" %>
+    <h4>Voted Best Answer</h4>
+    <%= ApplicationRecord.to_markdown(@best_answer) %>
+  </div>
+<% end %>
+<% @answers.each do |answer| %>
+  <div class="question_answer">
+    <% if @question.best_answer.nil? %>
+      <%= link_to "Vote Best", question_answer_vote_best_path(@question.id, answer.id), id: "vote_best_#{answer.id}", method: "POST", class: "button" %>
+    <% end %>
     <%= ApplicationRecord.to_markdown(answer.body) %>
   </div>
 <% end %>

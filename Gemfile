@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+#provides authentication integration with github
+gem 'omniauth-github'
 #provides markdown support
 gem 'redcarpet'
 # use pry instead of irb in rails console
@@ -42,6 +44,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
+end
+
+group :test do
+  gem 'factory_girl'
 end
 
 group :development do

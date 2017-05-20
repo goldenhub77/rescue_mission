@@ -10,6 +10,14 @@ module RescueMission
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
+    config.before_configuration do
+      env_file = File.join(Rails.root, 'config', 'env.yml')
+      if File.exists?(env_file)
+        YAML.load_file(env_file).each do |key, value|
+          ENV[key.to_s] = value
+        end # end YAML.load_file
+      end
+    end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
