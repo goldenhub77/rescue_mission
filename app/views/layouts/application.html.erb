@@ -11,30 +11,26 @@
   <body>
     <div class="top-bar">
       <div class="container">
-        <a class="logo" href="/">Home</a>
-        <% if !current_page?(questions_path) && !current_page?("/") %>
-          <%= link_to 'Home', questions_path, class: 'button' %>
-        <% end %>
-
         <ul class="top-bar-section">
+          <li><%= link_to 'Home', questions_path, class: 'button' %></li>
           <% if current_user %>
-            <li>Signed in as <%= current_user.name %></a></li>
-            <li><a href="/sign_out">Sign Out</a></li>
+            <li>Signed in as <%= current_user.name %></li>
+            <li><%= link_to "Sign Out", logout_path, method: "DELETE", class: "button" %></li>
           <% else %>
-            <li><a href="/auth/github">Sign In</a></li>
+            <li><%= link_to "Sign In", "/auth/github", class: "button" %></li>
           <% end %>
         </ul>
       </div>
     </div>
-    <!-- Not implemented yet -->
-    <!-- <% if flash.any? %>
+
+    <% if flash.any? %>
       <div class="flash">
         <div class="container">
           <%= flash[:notice] %>
           <a href='?' id='flash-close'>&#10005</a>
         </div>
       </div>
-    <% end %> -->
+    <% end %>
 
     <%= yield %>
   </body>

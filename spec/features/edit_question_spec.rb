@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 feature "edit question" do
-  let(:question) { Question.create(title: "How do you setup the rails environment on a windows machine?", description: "I have been attempting to install this and I get the following errors: error 1, error 2, error 3, error 4, error 5, error 6, and error 7, I uninstalled and followed the directions but still cannot get it to load")}
-  scenario "change title and description of question" do
+  let!(:user) { FactoryGirl.create(:user) }
+  let(:question) { user.questions.create(title: "How do you setup the rails environment on a windows machine?", description: "I have been attempting to install this and I get the following errors: error 1, error 2, error 3, error 4, error 5, error 6, and error 7, I uninstalled and followed the directions but still cannot get it to load")}
 
+  scenario "change title and description of question" do
+    sign_in_as user
     visit question_path(question.id)
     click_on("Edit")
     expect(page).to have_content("Edit Question", "How do you setup the rails environment on a windows machine?","I have been attempting to install this and I get the following errors: error 1, error 2, error 3, error 4, error 5, error 6, and error 7, I uninstalled and followed the directions but still cannot get it to load")
@@ -17,7 +19,7 @@ feature "edit question" do
   end
 
   scenario "change title and description of question with invalid inputs" do
-
+    sign_in_as user
     visit question_path(question.id)
     click_on("Edit")
     expect(page).to have_content("Edit Question", "This is what the new title will look like", "The description of the old question is now this one. You can see that it updated to the database successfully")

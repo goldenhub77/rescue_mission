@@ -1,36 +1,49 @@
 <h1><%= @question.title %></h1>
-<%= ApplicationRecord.to_markdown(@question.description) %>
-<%= link_to "Edit", edit_question_path(@question), class: "button" %>
-<h2>Submit an answer</h2>
-<% if !@errors.nil? %>
-  <div class="errors">
-    <p><%= @errors.join(", ") %></p>
-  </div>
-<% end %>
-<%= form_for [@question, @submitted_answer] do |f| %>
-  <div class="field">
-    <%= f.text_area :body, id: "body", size: "60x10" %>
-    <%= f.hidden_field :question_id %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-  </div>
+<h4>Question</h4>
+<div class="response-block">
+  <%= ApplicationRecord.to_markdown(@question.description) %>
+</div>
+<% if current_user %>
+  <% if @question.user_id === current_user.id %>
+    <%= link_to "Edit", edit_question_path(@question), class: "button" %>
+  <% end %>
+  <h2>Submit an answer</h2>
+  <% if @errors %>
+    <div class="errors">
+      <p><%= @errors.join(", ") %></p>
+    </div>
+  <% end %>
+  <%= form_for [@question, @submitted_answer] do |f| %>
+    <div class="field">
+      <%= f.text_area :body, id: "body", size: "60x10" %>
+      <%= f.hidden_field :question_id %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Submit Answer" %>
-  </div>
+    <div class="actions">
+      <%= f.submit "Submit Answer" %>
+    </div>
+  <% end %>
 <% end %>
+
 
 <h4>Answers</h4>
 <% if @question.best_answer %>
-  <div class="question_answer">
+  <div class="response-block">
     <h4>Voted Best Answer</h4>
     <%= ApplicationRecord.to_markdown(@best_answer) %>
   </div>
 <% end %>
-<% @answers.each do |answer| %>
-  <div class="question_answer">
-    <% if @question.best_answer.nil? %>
-      <%= link_to "Vote Best", question_answer_vote_best_path(@question.id, answer.id), id: "vote_best_#{answer.id}", method: "POST", class: "button" %>
-    <% end %>
-    <%= ApplicationRecord.to_markdown(answer.body) %>
-  </div>
+<% if @answers.empty? && @question.best_answer.nil? %>
+  <h4>There are no answers yet</h4>
+<% else %>
+  <% @answers.each do |answer| %>
+
+    <div class="response-block">
+      <% if @question.best_answer.nil? && current_user && @question.user_id === current_user.id %>
+        <%= link_to "Vote Best", question_answer_vote_best_path(@question.id, answer.id), id: "vote_best_#{answer.id}", method: "POST", class: "button" %>
+      <% end %>
+      <%= ApplicationRecord.to_markdown(answer.body) %>
+    </div>
+  <% end %>
 <% end %>

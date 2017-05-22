@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 feature "submit a question" do
+  let!(:user) { FactoryGirl.create(:user) }
 
   before(:each) do
+    sign_in_as user
     visit new_question_path
   end
   scenario "successfully submit question" do

@@ -1,7 +1,9 @@
+require 'omniauth-github'
+
 module AuthenticationHelper
   def sign_in_as(user)
     mock_auth_for(user)
-    visit "/"
+    visit root_path
     click_link "Sign In"
   end
 
@@ -10,7 +12,7 @@ module AuthenticationHelper
       "provider" => user.provider,
       "uid" => user.uid,
       "info" => {
-        "nickname" => user.username,
+        "nickname" => user.nickname,
         "email" => user.email,
         "name" => user.name,
         "image" => user.avatar_url,
@@ -20,13 +22,13 @@ module AuthenticationHelper
         }
       },
       "credentials" => {
-        "token" => "1234",
+        "token" => user.token,
         "expires" => false
       },
       "extra" => {
         "raw_info" => {
           "login" => "",
-          "id" => user.uid.to_s,
+          "id" => user.uid,
           "avatar_url" => user.avatar_url,
           "gravatar_id" => "",
           "url" => "",

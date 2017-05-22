@@ -21,7 +21,7 @@ p.recent_questions {
   margin: 1rem;
 }
 
-div.question_answer {
+.response-block {
   border: 2px solid gray;
   padding: 1rem;
   margin: 2rem;

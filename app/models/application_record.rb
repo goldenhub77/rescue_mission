@@ -3,6 +3,10 @@ class ApplicationRecord < ActiveRecord::Base
 
   def self.to_markdown(string)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
-    markdown.render(string).html_safe
+    if string.nil?
+      return ""
+    else
+      markdown.render(string).html_safe
+    end
   end
 end
